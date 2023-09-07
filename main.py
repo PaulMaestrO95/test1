@@ -3,14 +3,18 @@ import time
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 try:
     with open('names.csv', 'r', encoding='utf8') as file:
         employees = file.read().splitlines()
 
     results = []
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install())
+    )
 
     for employee in employees:
         driver.get('https://www.megaputer.ru/produkti/sertifikat/')
